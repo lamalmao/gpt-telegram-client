@@ -1,0 +1,9 @@
+node_modules
+settings.json
+logs.*
+*.log
+*.bat
+*.sh
+session*
+.vscode
+dist
