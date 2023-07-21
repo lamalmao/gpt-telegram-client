@@ -61,6 +61,7 @@ dialogue.on(
       }
 
       ctx.session.gpt.waiting = true;
+      await ctx.sendChatAction('typing');
       const { text, id } = await api.sendMessage(ctx.message.text, {
         parentMessageId: dialogue.message
       });
@@ -70,8 +71,12 @@ dialogue.on(
           ctx.session.gpt.currentDialogue
         ].title.startsWith('Диалог №')
       ) {
+        await ctx.sendChatAction('typing');
+        const title = await api.sendMessage(
+          `Придумай короткий заголовок в 3-4 слова к вопросу ниже, не используй кавычки и любые другие знаки: \n\n${ctx.message.text}`
+        );
         ctx.session.gpt.gptSessions[ctx.session.gpt.currentDialogue].title =
-          text.split(' ').slice(0, 3).join(' ');
+          title.text;
       }
 
       await ctx.reply(text);

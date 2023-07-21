@@ -21,6 +21,7 @@ newDialogue.enterHandler = async ctx => {
       ctx.session.gpt.currentDialogue = ctx.session.gpt.gptSessions.length;
     }
 
+    await ctx.sendChatAction('typing');
     const { id, text, name } = await api.sendMessage('Начнём');
 
     ctx.session.gpt.gptSessions.push({
